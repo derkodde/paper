@@ -1,4 +1,4 @@
-    <title>paper - <?php echo $page; ?></title>
+		<title>paper - <?php echo $page; ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/> <!--320-->
 
@@ -14,6 +14,6 @@
     <script src='/paper/tinymce/tinymce.min.js'></script>
     <script src="/paper/js/tinymce-conf.js"></script>
 
-    <script src="/paper/js/ui.js"></script>
     <script src="/paper/js/functions.js"></script>
     <script src="/paper/js/paper.js"></script>
+		
