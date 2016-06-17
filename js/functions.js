@@ -1,3 +1,14 @@
+//=================
+//Ajax Load content
+//=================
+function ajaxLoadContent (){
+	$('.main-content').load("/paper/controller/ajax-load-content.php", function(){
+			console.log("Ajax Content refreshed!");
+			initFullpageJs();
+	});
+}
+
+
 
 // Menu
 //==========================================
@@ -30,13 +41,9 @@ function mergeIdsAndNames(sortedIDs) {
     return menuOrder
 }
 
-
-
 function getMenuTitle(id) {
     return $("#sortable1 #"+id ).text();
 }
-
-
 
 function loadMenuJson() {
     $.getJSON( "/paper/menu.json", function( data ) {
@@ -52,11 +59,11 @@ function loadMenuJson() {
 }
 
 
-// tinyMCE Content
+
+//  Content
 //==========================================
 function writeContent (currContent){
 //     console.log("speicher");
-
 
     var currPage = getCurrPage();
     var currTargetPage = getContentPath();
@@ -70,7 +77,6 @@ function writeContent (currContent){
 
 
 //     console.log(data);
-
 
     $.ajax({
            type: "POST",
@@ -119,7 +125,35 @@ function getCurrPage() {
     }
     return currPage;
 }
+//==============
+// init plugins
+//==============
 
+function initFullpageJs(){
+	$('#fullpage').fullpage({
+			normalScrollElements: '.scrollable , nav.pagenav, .mceContentBody,  .settings-container.opened',
+			scrollOverflow: true,
+			fixedElements: 'nav#pagenav, .settings-container.opened',
+			slidesNavigation: true,
+			slidesNavPosition: 'bottom',
+			keyboardScrolling: false,
+			controlArrows: false,
+			verticalCentered: false,
+			fitToSection: true,
+			recordHistory: false,
+			fixed_toolbar_container: ".formtarget",
+			anchors:['firstStack', 'secondStack', 'thirdStack'],
+			afterRender: function(){
+					tinymceInit();
+			},
+			afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){
+				 var loadedSection = $(this);
+				 currSlide = slideAnchor;
+
+				 //    console.log(currSlide);
+				 }
+	});
+}
 function tinymceInit(){
     tinymce.init({
         selector: 'article.scrollable',
