@@ -1,0 +1,89 @@
+body, mce {
+  color: #666;
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+  font-size: 16px;
+  box-sizing: border-box; }
+
+h1 {
+  font-size: 2em; }
+
+article {
+  margin: 0 auto;
+  padding: 15px 30px;
+  max-width: 650px;
+  width: 100%;
+  overflow-y: auto;
+  word-wrap: break-word;
+  word-break: normal; }
+  article img {
+    width: 100%;
+    height: auto; }
+
+.text-center {
+  display: block;
+  text-align: center;
+  text-transform: capitalize; }
+
+.inline-block {
+  display: inline-block !important; }
+
+nav {
+  background-color: #666;
+  position: fixed;
+  bottom: 0;
+  height: 46px;
+  width: 100%;
+  -moz-box-shadow: inset 0 4px 8px -4px #333;
+  -webkit-box-shadow: inset 0 4px 8px -4px #333;
+  box-shadow: inset 0 4px 8px -4px #333; }
+  nav .handle {
+    display: inline-block;
+    color: #eee; }
+    nav .handle.content-settings {
+      display: none; }
+    nav .handle i {
+      display: inline-block;
+      padding: 15px; }
+      nav .handle i.fa-close, nav .handle i.fa-refresh {
+        display: none; }
+  nav .settings-container {
+    display: none;
+    font-family: monospace;
+    color: #eee;
+    transition: all 0.2s; }
+    nav .settings-container.opened {
+      position: fixed;
+      top: 0;
+      display: flex;
+      align-items: center;
+      flex-flow: column;
+      width: 100%;
+      margin: 0 auto; }
+    nav .settings-container .menu {
+      color: #666;
+      width: 400px; }
+      nav .settings-container .menu ul {
+        padding: 0;
+        background-color: transparent;
+        width: 100%;
+        background-color: #eee;
+        border-bottom: 2px solid #666;
+        border-top: 2px solid #666; }
+        nav .settings-container .menu ul li {
+          background: #fff;
+          display: block;
+          padding: 5px;
+          border-bottom: 1px solid #eee; }
+          nav .settings-container .menu ul li .ui-sortable-helper {
+            transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
+            -webkit-transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
+            -moz-transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
+            -o-transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
+            -ms-transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
+            -moz-box-shadow: -2px -2px 32px -12px #000000;
+            -webkit-box-shadow: -2px -2px 32px -12px #000000;
+            box-shadow: -2px -2px 32px -12px #000000; }
+
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,6 @@
+# invoke rewrite engine
+    RewriteEngine On
+    RewriteBase /paper/
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]

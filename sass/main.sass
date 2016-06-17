@@ -1,0 +1,102 @@
+$dark : #666
+$light: #eee
+$padding : 30px
+$width: 650px
+$bs-stand: inset 0 4px 8px -4px #333
+
+= box-shadow
+	-moz-box-shadow: $bs-stand
+	-webkit-box-shadow: $bs-stand
+	box-shadow: $bs-stand
+= text-center
+	display: block
+	text-align: center
+	text-transform: capitalize
+
+body, mce
+	color: $dark
+	margin: 0
+	padding: 0
+	font-family: monospace
+	font-size: 16px
+	box-sizing: border-box
+
+h1
+	font-size: 2em
+article
+	margin: 0 auto
+	padding: $padding/2 $padding
+	max-width: $width
+	width: 100%
+	overflow-y: auto
+	word-wrap: break-word
+	word-break: normal
+	img
+		width: 100%
+		height: auto
+
+// utility Classes
+.text-center
+	+text-center
+.inline-block
+	display: inline-block !important
+
+// Nav
+nav
+	background-color: $dark
+	position: fixed
+	bottom: 0
+	height:	46px
+	width: 100%
+	+box-shadow
+
+	//handle
+	.handle
+		display: inline-block
+		color: $light
+		&.content-settings
+			display: none
+		i
+			display: inline-block
+			padding: $padding/2
+			&.fa-close, &.fa-refresh
+				display: none
+
+	// Page-Settings
+	.settings-container
+		display: none
+		font-family: monospace
+		color: $light
+		transition: all 0.2s
+		&.opened
+			position: fixed
+			top: 0
+			display: flex
+			align-items: center
+			flex-flow: column
+			width: 100%
+			margin: 0 auto
+		.menu
+			color: $dark
+			width: 400px
+			ul
+				padding: 0
+				background-color: transparent
+				width: 100%
+				background-color: $light
+				border-bottom: 2px solid $dark
+				border-top: 2px solid $dark
+				li
+					background: #fff
+					display: block
+					padding: 5px
+					border-bottom: 1px solid $light
+					.ui-sortable-helper
+						transform: rotate(1deg) scale(1) skew(1deg) translate(0px)
+						-webkit-transform: rotate(1deg) scale(1) skew(1deg) translate(0px)
+						-moz-transform: rotate(1deg) scale(1) skew(1deg) translate(0px)
+						-o-transform: rotate(1deg) scale(1) skew(1deg) translate(0px)
+						-ms-transform: rotate(1deg) scale(1) skew(1deg) translate(0px)
+						-moz-box-shadow: -2px -2px 32px -12px #000000
+						-webkit-box-shadow: -2px -2px 32px -12px #000000
+						box-shadow: -2px -2px 32px -12px #000000
