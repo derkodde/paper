@@ -13,22 +13,9 @@ jQuery(document).ready(function() {
 		 toggleMenu();
   });
 
-	
+	checkIfMceClosing();
 
-	$('article').attrchange({
-	  trackValues: true,
-	  callback: function (event) {
-			if (event.attributeName === 'class'){
-				var wasMce =  event.oldValue;
-				var pattern = /mce-edit-focus/;
-				var exists = pattern.test(wasMce)
-				if(exists) {
 
-					$('.fp-slidesNav').show();
-				}
-			}
 
-	  }
-	});
 
 });

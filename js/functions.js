@@ -7,6 +7,7 @@ function ajaxLoadContent (){
 	$('.section').load("/paper/controller/ajax-load-content.php", function(){ //section muss mit der Stack Klasse ersetzt erden
 		$.fn.fullpage.destroy('all');
 			initFullpageJs();
+			initAttrchangeOnMce();
 	});
 }
 function showSaveSymbol(){
@@ -14,6 +15,24 @@ function showSaveSymbol(){
 	$('i.fa-save').fadeOut(600);
 }
 
+function initAttrchangeOnMce(){
+	$('article').attrchange({
+	  trackValues: true,
+	  callback: function (event) {
+			if (event.attributeName === 'class'){
+				var wasMce =  event.oldValue;
+				console.log(wasMce);
+				var pattern = /mce-edit-focus/;
+				var exists = pattern.test(wasMce)
+				if(exists) {
+
+					$('.fp-slidesNav').show();
+				}
+			}
+
+	  }
+	});
+}
 
 // Menu
 //==========================================
@@ -93,10 +112,7 @@ function writeContent (currContent){
         currPage : currTargetPage,
         content : currContent
         };
-
-
 //     console.log(data);
-
     $.ajax({
            type: "POST",
            url: contentHandlerUrl,
