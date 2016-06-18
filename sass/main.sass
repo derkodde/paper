@@ -3,6 +3,7 @@ $light: #eee
 $padding : 30px
 $width: 650px
 $bs-stand: inset 0 4px 8px -4px #333
+$menu-height: 41px
 
 = box-shadow
 	-moz-box-shadow: $bs-stand
@@ -49,7 +50,7 @@ nav
 	background-color: $dark
 	position: fixed
 	bottom: 0
-	height:	41px
+	height:	$menu-height
 	width: 100%
 	+box-shadow
 
@@ -57,31 +58,32 @@ nav
 	.handle
 		display: inline-block
 		color: $light
-		&.content-settings
-			display: none
 		i
 			display: inline-block
 			padding: $padding/2
-			&.fa-close, &.fa-refresh
+			&.fa-close
 				display: none
-
+			&.fa-save
+				display: none
+				position: absolute
+				right: 10px
+				bottom: 0
 	// Page-Settings
 	.settings-container
+		box-sizing: border-box
+		background: #FFF
 		display: none
 		font-family: monospace
-		color: $light
-		transition: all 0.2s
-		&.opened
-			position: fixed
-			top: 0
-			display: flex
-			align-items: center
-			flex-flow: column
-			width: 100%
-			margin: 0 auto
+		color: $dark
+		position: fixed
+		padding-top: 20px
+		top: 0
+		width: 100%
 		.menu
 			color: $dark
-			width: 400px
+			width: 100%
+			max-width: 300px
+			margin: 0 auto
 			ul
 				padding: 0
 				background-color: transparent

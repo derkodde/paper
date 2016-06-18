@@ -10,9 +10,7 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/paper/';
   <body>
       <div id="fullpage" class="site-wrapper">
         <div class="section" class="content-wrapper">
-          <section  class="main-content">
             <?php include_once 'controller/load-content.php'; ?>
-          </section>
         </div>
       </div>
 			<?php include_once 'partials/nav.html'; ?>

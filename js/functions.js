@@ -2,16 +2,39 @@
 //Ajax Load content
 //=================
 function ajaxLoadContent (){
-	$('.main-content').load("/paper/controller/ajax-load-content.php", function(){
-			console.log("Ajax Content refreshed!");
+		showSaveSymbol();
+		var stack ="firstStack";
+	$('.section').load("/paper/controller/ajax-load-content.php", function(){ //section muss mit der Stack Klasse ersetzt erden
+		$.fn.fullpage.destroy('all');
 			initFullpageJs();
 	});
 }
-
+function showSaveSymbol(){
+	$('i.fa-save').toggle();
+	$('i.fa-save').fadeOut(600);
+}
 
 
 // Menu
 //==========================================
+function toggleMenu(){
+	if ($('.settings-container').hasClass('opened')){
+		ajaxLoadContent();
+	} else {
+		var vhWithoutNav =  $( document ).height() - 41;
+		$('.settings-container').css('height', vhWithoutNav +'px' );
+	}
+
+	// dem Elternelement settings-container die klasse geben
+	$('.settings-container').toggleClass('opened');
+	$('.settings-container').fadeToggle();
+	//  toggle the Content
+	$('.slide').fadeToggle();
+	$('.fp-slidesNav').fadeToggle();
+	// Ausbwechseln der symbole
+	$('.handle i.fa-ellipsis-v').toggle();
+	$('i.fa-close').toggleClass('inline-block');
+}
 
 // abhängig: mergeIdsAndNames()
 function writeMenuJson(sortedIDs) {
@@ -22,13 +45,12 @@ function writeMenuJson(sortedIDs) {
         url : "/paper/controller/menu-json.php",
         data : { json : JSON.stringify(menu) },
         success : function(result){
-            console.log('AJAX successfully called!!');
-
+					showSaveSymbol();
+					var menuWritten = true;
             },
         error : function(exeption){
             console.log('error');
-            }
-
+					}
     });
     // console.log(JSON.stringify(menu));
 }
@@ -58,13 +80,10 @@ function loadMenuJson() {
     });
 }
 
-
-
 //  Content
 //==========================================
 function writeContent (currContent){
 //     console.log("speicher");
-
     var currPage = getCurrPage();
     var currTargetPage = getContentPath();
     var currContent = currContent;
@@ -84,7 +103,9 @@ function writeContent (currContent){
            data: data, // serializes the form's elements.
            success: function(data)
            {
-                console.log("Successfully send data of " + currPage + ".");
+						showSaveSymbol();
+
+  				 console.log("Successfully send data of " + currPage + ".");
 
            }
          });
@@ -128,6 +149,32 @@ function getCurrPage() {
 //==============
 // init plugins
 //==============
+function initJQueryUi(){
+	$('')
+	$("ul.droptrue").sortable({
+		connectWith: "ul"
+	});
+	// --------------sortierung bei Aufrufend der Seite----------
+	$('#sortable1').sortable({
+		create: function(event, ui) {
+			// var sortedIDs = $( "#sortable1" ).sortable( "serialize", { key:"sort"} );
+			var sortedIDs = $("#sortable1").sortable("toArray");
+			//   console.log(mergeIdsAndNames(sortedIDs));
+			console.log('created sortable');
+		}
+	});
+	$('#sortable1').sortable({
+		axis: 'y',
+		update: function(event, ui) {
+			// var sortedIDs = $( "#sortable1" ).sortable( "serialize", { key:'sort'} );
+			// $('.array').text(sortedIDs); //print to page
+
+			var sortedIDs = $("#sortable1").sortable("toArray"); //
+			// console.log(mergeIdsAndNames(sortedIDs)); //object
+			writeMenuJson(sortedIDs);
+		}
+	});
+}
 
 function initFullpageJs(){
 	$('#fullpage').fullpage({
@@ -158,7 +205,7 @@ function tinymceInit(){
     tinymce.init({
         selector: 'article.scrollable',
         plugins: 'code advlist autolink link tabfocus contextmenu autoresize codesample hr charmap image',
-        // contextmenu: "link image inserttable formats bullist numlist",
+        contextmenu: "formats",
         toolbar:  'undo redo | fontselect styleselect | bullist numlist  | outdent indent  | hr codesample link unlink image |',
 				// toolbar: false,
         skin: 'white',
@@ -171,8 +218,11 @@ function tinymceInit(){
         setup : function(ed) {
                   ed.on('change', function(e) {
                     var currContent = ed.getContent();
-                    writeContent (currContent);
-                  });
+										writeContent (currContent);
+									});
+									ed.on('click', function(e) {
+										$('.fp-slidesNav').fadeOut();
+									});
             }
     });
 }

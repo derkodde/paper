@@ -43,29 +43,31 @@ nav {
   nav .handle {
     display: inline-block;
     color: #eee; }
-    nav .handle.content-settings {
-      display: none; }
     nav .handle i {
       display: inline-block;
       padding: 15px; }
-      nav .handle i.fa-close, nav .handle i.fa-refresh {
+      nav .handle i.fa-close {
         display: none; }
+      nav .handle i.fa-save {
+        display: none;
+        position: absolute;
+        right: 10px;
+        bottom: 0; }
   nav .settings-container {
+    box-sizing: border-box;
+    background: #FFF;
     display: none;
     font-family: monospace;
-    color: #eee;
-    transition: all 0.2s; }
-    nav .settings-container.opened {
-      position: fixed;
-      top: 0;
-      display: flex;
-      align-items: center;
-      flex-flow: column;
-      width: 100%;
-      margin: 0 auto; }
+    color: #666;
+    position: fixed;
+    padding-top: 20px;
+    top: 0;
+    width: 100%; }
     nav .settings-container .menu {
       color: #666;
-      width: 400px; }
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto; }
       nav .settings-container .menu ul {
         padding: 0;
         background-color: transparent;
