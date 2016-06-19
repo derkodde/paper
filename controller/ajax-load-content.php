@@ -13,12 +13,14 @@ $dir = $_SERVER['DOCUMENT_ROOT']. '/paper/content/';
 
 foreach ($titles as $key => $value) {
     echo '<div id="'. $value .'" class="slide" data-anchor="'. $value .'">';
+		// echo '<div class="content_wrapper">';
 
 		echo '<h1 class="text-center">'.$value.'</h1>';
 		echo '<div class="formtarget"></div>';
 		echo '<article class="scrollable">';
 		 include ($dir.$value.'.html');
     echo "</article></div>";
+
 }
 
 
