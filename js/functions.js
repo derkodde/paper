@@ -1,6 +1,3 @@
-
-
-
 /*
 * shows a fa-save Icon when Ajax saving
 *	called, when the content of a slide or the menu is updated
@@ -8,6 +5,39 @@
 function showSaveSymbol(){
 	$('i.fa-save').toggle();
 	$('i.fa-save').fadeOut(600);
+}
+
+/*
+* gets the path of the current slide
+*	used for saving MCE content
+*/
+function getContentPath(){
+		currPage = getCurrPage();
+    var currContentPath = '/paper/content/'+ currPage + '.html';
+    return currContentPath;
+}
+
+
+/*
+*	gets the name of the current page with the current URL.
+*	uses the current menu to get the name of the first item
+*	needs the current Stack
+*/
+function getCurrPage() {
+    url      = window.location.href;
+    var array = url.split('/');
+    var currPage = array[array.length-1];
+
+		//fullpage.js gives no URL parameter for the first slide of a stack
+    if (currPage == ('stack#' + currStack)) {
+        $("#sortable1 li").each(function( index ) {
+            currMenu.push($(this).text());
+            // currPage = currMenu[0];
+        });
+      	urrPage= currMenu[0];
+    }
+
+    return currPage;
 }
 
 /*
@@ -28,18 +58,25 @@ function toggleMenu(){
 	// toggle the Content
 	$('.settings-container').fadeToggle();
 	$('.slide').fadeToggle();
+
 	// toggle the icons
 		$('.fp-slidesNav').fadeToggle();
 	$('.handle i.fa-ellipsis-v').toggle();
 	$('i.fa-close').toggleClass('inline-block');
 }
 
+
 /*
 *	writeMenuJson() ajax saves the current position of the menu items to a json file
 *
 */
 function writeMenuJson(sortedIDs) {
-    var menu =  mergeIdsAndNames(sortedIDs);
+		//merge ids from jQueryUI with names
+		var menu = {};
+		$.each(sortedIDs, function(key, value) {
+				menu[key] = { 'id' :  value, 'title' :  $("#sortable1 #"+ value ).text() } ;
+		});
+
     //  jQuery to write to file
     $.ajax({
         type : "POST",
@@ -56,23 +93,10 @@ function writeMenuJson(sortedIDs) {
     // console.log(JSON.stringify(menu));
 }
 
-
 /*
-*
+*	displays the menu.  Only loaded on pageload!
 *
 */
-function mergeIdsAndNames(sortedIDs) {
-    var menuOrder = {};
-    $.each(sortedIDs, function(key, value) {
-        menuOrder[key] = { 'id' :  value, 'title' :  getMenuTitle(value)} ;
-    });
-    return menuOrder
-}
-
-function getMenuTitle(id) {
-    return $("#sortable1 #"+id ).text();
-}
-
 function loadMenuJson() {
     $.getJSON( "/paper/menu.json", function( data ) {
 
@@ -101,7 +125,7 @@ function ajaxLoadContent (){
 	});
 }
 /*
-*
+*	writes the (new) Content to the Content/*.html file of the currently changed paper when tinymce detects a change.
 *
 */
 function writeContent (currContent){
@@ -112,59 +136,22 @@ function writeContent (currContent){
     var contentHandlerUrl = "/paper/controller/ajax-submit-content.php"; // the script where you handle the form input.
 
     var data = {
-        currPage : currTargetPage,
-        content : currContent
-        };
+      currPage : currTargetPage,
+      content : currContent
+    };
 //     console.log(data);
     $.ajax({
-           type: "POST",
-           url: contentHandlerUrl,
-           data: data, // serializes the form's elements.
-           success: function(data)
-           {
-						showSaveSymbol();
-
-  				 console.log("Successfully send data of " + currPage + ".");
-
-           }
-         });
+			type: "POST",
+			url: contentHandlerUrl,
+			data: data, // serializes the form's elements.
+			success: function(data)	{
+				showSaveSymbol();
+				// console.log("Successfully send data of " + currPage + ".");
+			}
+   });
 }
 
-function getContentPath(){
-    url      = window.location.href;
-    var array = url.split('/');
-    var currPage = array[array.length-1];
 
-    if (currPage == ('stack#' + currStack)) {
-        $("#sortable1 li").each(function( index ) {
-            currMenu.push($(this).text());
-        });
-
-        // console.log( currMenu[0]);
-        currPage= currMenu[0];
-    }
-
-    // console.log(currPage);
-    var currContentPath = '/paper/content/'+ currPage + '.html';
-    // console.log(currContentPath);
-    return currContentPath;
-}
-function getCurrPage() {
-    url      = window.location.href;
-    var array = url.split('/');
-    var currPage = array[array.length-1];
-
-    if (currPage == ('stack#' + currStack)) {
-        $("#sortable1 li").each(function( index ) {
-            currMenu.push($(this).text());
-            // currPage = currMenu[0];
-        });
-
-        // console.log( currMenu[0]);
-        currPage= currMenu[0];
-    }
-    return currPage;
-}
 //==============
 // init plugins
 //==============
@@ -173,23 +160,11 @@ function initJQueryUi(){
 	$("ul.droptrue").sortable({
 		connectWith: "ul"
 	});
-	// --------------sortierung bei Aufrufend der Seite----------
-	$('#sortable1').sortable({
-		create: function(event, ui) {
-			// var sortedIDs = $( "#sortable1" ).sortable( "serialize", { key:"sort"} );
-			var sortedIDs = $("#sortable1").sortable("toArray");
-			//   console.log(mergeIdsAndNames(sortedIDs));
-			console.log('created sortable');
-		}
-	});
+
 	$('#sortable1').sortable({
 		axis: 'y',
 		update: function(event, ui) {
-			// var sortedIDs = $( "#sortable1" ).sortable( "serialize", { key:'sort'} );
-			// $('.array').text(sortedIDs); //print to page
-
 			var sortedIDs = $("#sortable1").sortable("toArray"); //
-			// console.log(mergeIdsAndNames(sortedIDs)); //object
 			writeMenuJson(sortedIDs);
 		}
 	});
@@ -211,6 +186,7 @@ function initFullpageJs(){
 			anchors:['firstStack', 'secondStack', 'thirdStack'],
 			afterRender: function(){
 					tinymceInit();
+					initAttrchangeOnMce();
 			},
 			afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){
 				 var loadedSection = $(this);
@@ -225,7 +201,7 @@ function tinymceInit(){
         selector: 'article.scrollable',
         plugins: 'code advlist autolink link tabfocus contextmenu autoresize codesample hr charmap image',
         contextmenu: "formats",
-        toolbar:  'undo redo | fontselect styleselect | bullist numlist  | outdent indent  | hr codesample link unlink image |',
+        toolbar:  'undo redo | styleselect | bullist numlist  | outdent indent  | hr codesample link unlink image |',
 				// toolbar: false,
         skin: 'white',
         tabfocus_elements: ":prev,:next",
@@ -259,7 +235,6 @@ function initAttrchangeOnMce(){
 					$('.fp-slidesNav').show();
 				}
 			}
-
 	  }
 	});
 }

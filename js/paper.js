@@ -13,9 +13,4 @@ jQuery(document).ready(function() {
 		 toggleMenu();
   });
 
-	checkIfMceClosing();
-
-
-
-
 });
