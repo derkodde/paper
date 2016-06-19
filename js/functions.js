@@ -1,41 +1,19 @@
-//=================
-//Ajax Load content
-//=================
-function ajaxLoadContent (){
-		showSaveSymbol();
-		var stack ="firstStack";
-	$('.section').load("/paper/controller/ajax-load-content.php", function(){ //section muss mit der Stack Klasse ersetzt erden
-		$.fn.fullpage.destroy('all');
-			initFullpageJs();
-			initAttrchangeOnMce();
-	});
-}
+
+
+
+/*
+* shows a fa-save Icon when Ajax saving
+*	called, when the content of a slide or the menu is updated
+*/
 function showSaveSymbol(){
 	$('i.fa-save').toggle();
 	$('i.fa-save').fadeOut(600);
 }
 
-function initAttrchangeOnMce(){
-	$('article').attrchange({
-	  trackValues: true,
-	  callback: function (event) {
-			if (event.attributeName === 'class'){
-				var wasMce =  event.oldValue;
-				console.log(wasMce);
-				var pattern = /mce-edit-focus/;
-				var exists = pattern.test(wasMce)
-				if(exists) {
-
-					$('.fp-slidesNav').show();
-				}
-			}
-
-	  }
-	});
-}
-
-// Menu
-//==========================================
+/*
+* toggleMenu is called, when the menu icon is clicked and handles the fading of the menu & slides and of the icons.
+*	it calls the ajaxLoadContent() when the menu is left to load the content in the new order of the menu.
+*/
 function toggleMenu(){
 	if ($('.settings-container').hasClass('opened')){
 		ajaxLoadContent();
@@ -44,18 +22,22 @@ function toggleMenu(){
 		$('.settings-container').css('height', vhWithoutNav +'px' );
 	}
 
-	// dem Elternelement settings-container die klasse geben
+	// change CSS class of the menu
 	$('.settings-container').toggleClass('opened');
+
+	// toggle the Content
 	$('.settings-container').fadeToggle();
-	//  toggle the Content
 	$('.slide').fadeToggle();
-	$('.fp-slidesNav').fadeToggle();
-	// Ausbwechseln der symbole
+	// toggle the icons
+		$('.fp-slidesNav').fadeToggle();
 	$('.handle i.fa-ellipsis-v').toggle();
 	$('i.fa-close').toggleClass('inline-block');
 }
 
-// abhängig: mergeIdsAndNames()
+/*
+*	writeMenuJson() ajax saves the current position of the menu items to a json file
+*
+*/
 function writeMenuJson(sortedIDs) {
     var menu =  mergeIdsAndNames(sortedIDs);
     //  jQuery to write to file
@@ -73,7 +55,12 @@ function writeMenuJson(sortedIDs) {
     });
     // console.log(JSON.stringify(menu));
 }
-//abhängig: sortedIDs
+
+
+/*
+*
+*
+*/
 function mergeIdsAndNames(sortedIDs) {
     var menuOrder = {};
     $.each(sortedIDs, function(key, value) {
@@ -99,8 +86,24 @@ function loadMenuJson() {
     });
 }
 
-//  Content
-//==========================================
+/*
+* ajaxLoadContent() Ajax-loads the whole Page content.
+* fullpage.js and attrchange.js must be re-instanciated.
+* It is called after closing the menu.
+*/
+function ajaxLoadContent (){
+		showSaveSymbol();
+		var stack ="firstStack";
+	$('.section').load("/paper/controller/ajax-load-content.php", function(){ //section muss mit der Stack Klasse ersetzt erden
+		$.fn.fullpage.destroy('all');
+			initFullpageJs();
+			initAttrchangeOnMce();
+	});
+}
+/*
+*
+*
+*/
 function writeContent (currContent){
 //     console.log("speicher");
     var currPage = getCurrPage();
@@ -241,4 +244,22 @@ function tinymceInit(){
 									});
             }
     });
+}
+function initAttrchangeOnMce(){
+	$('article').attrchange({
+	  trackValues: true,
+	  callback: function (event) {
+			if (event.attributeName === 'class'){
+				var wasMce =  event.oldValue;
+				console.log(wasMce);
+				var pattern = /mce-edit-focus/;
+				var exists = pattern.test(wasMce)
+				if(exists) {
+
+					$('.fp-slidesNav').show();
+				}
+			}
+
+	  }
+	});
 }
