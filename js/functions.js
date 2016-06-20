@@ -114,15 +114,15 @@ function loadMenuJson() {
 *	adds an entry in the menu and a content file
 *
 */
-function addPaper(){
+function addPaper(event){
 		//add li to archive
     var newSlide = $('<li></li>').text($('.menu.archive input[name=paper-name]').val());
-		$('.menu.archive').on('click', function(event){
-			event.preventDefault();
-		});
 		$('.settings-container ul#menu_archive').append(newSlide);
 
-
+		$('.menu.archive input[name=add-button]').on('click', function(event){
+			event.preventDefault();
+			$('.menu.archive input[name=paper-name]').val(' ');
+		});
 
 }
 
@@ -244,11 +244,9 @@ function initAttrchangeOnMce(){
 	  callback: function (event) {
 			if (event.attributeName === 'class'){
 				var wasMce =  event.oldValue;
-				console.log(wasMce);
 				var pattern = /mce-edit-focus/;
 				var exists = pattern.test(wasMce)
 				if(exists) {
-
 					$('.fp-slidesNav').show();
 				}
 			}
