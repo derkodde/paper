@@ -9,6 +9,10 @@ body, mce {
 h1 {
   font-size: 2em; }
 
+.fp-slide {
+  box-sizing: border-box;
+  border: 5px solid #666; }
+
 article {
   margin: 0 auto;
   padding: 15px 30px;
@@ -16,10 +20,12 @@ article {
   width: 100%;
   overflow-y: auto;
   word-wrap: break-word;
-  word-break: normal; }
+  word-break: break-all; }
   article img {
     width: 100%;
     height: auto; }
+  article h1 {
+    margin-top: 10px; }
 
 .text-center {
   display: block;
@@ -30,40 +36,39 @@ article {
   display: inline-block !important; }
 
 nav {
-  background-color: #666;
+  background-color: transparent;
   position: fixed;
   bottom: 0;
-  height: 46px;
-  width: 100%;
-  -moz-box-shadow: inset 0 4px 8px -4px #333;
-  -webkit-box-shadow: inset 0 4px 8px -4px #333;
-  box-shadow: inset 0 4px 8px -4px #333; }
+  height: 41px;
+  width: 100%; }
   nav .handle {
     display: inline-block;
-    color: #eee; }
-    nav .handle.content-settings {
-      display: none; }
+    color: #666; }
     nav .handle i {
       display: inline-block;
       padding: 15px; }
-      nav .handle i.fa-close, nav .handle i.fa-refresh {
+      nav .handle i.fa-close {
         display: none; }
+      nav .handle i.fa-save {
+        display: none;
+        position: absolute;
+        right: 10px;
+        bottom: 0; }
   nav .settings-container {
+    box-sizing: border-box;
+    background: #FFF;
     display: none;
     font-family: monospace;
-    color: #eee;
-    transition: all 0.2s; }
-    nav .settings-container.opened {
-      position: fixed;
-      top: 0;
-      display: flex;
-      align-items: center;
-      flex-flow: column;
-      width: 100%;
-      margin: 0 auto; }
+    color: #666;
+    position: fixed;
+    padding-top: 20px;
+    top: 0;
+    width: 100%; }
     nav .settings-container .menu {
       color: #666;
-      width: 400px; }
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto; }
       nav .settings-container .menu ul {
         padding: 0;
         background-color: transparent;
@@ -76,7 +81,7 @@ nav {
           display: block;
           padding: 5px;
           border-bottom: 1px solid #eee; }
-          nav .settings-container .menu ul li .ui-sortable-helper {
+          nav .settings-container .menu ul li.ui-sortable-helper {
             transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
             -webkit-transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
             -moz-transform: rotate(1deg) scale(1) skew(1deg) translate(0px);
@@ -85,5 +90,13 @@ nav {
             -moz-box-shadow: -2px -2px 32px -12px #000000;
             -webkit-box-shadow: -2px -2px 32px -12px #000000;
             box-shadow: -2px -2px 32px -12px #000000; }
+      nav .settings-container .menu.archive form {
+        white-space: nowrap; }
+        nav .settings-container .menu.archive form input[name=paper-name] {
+          width: 75%;
+          margin: 0; }
+        nav .settings-container .menu.archive form input[name=add-button] {
+          width: 20%;
+          margin: 0; }
 
 /*# sourceMappingURL=main.css.map */
