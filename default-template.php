@@ -10,9 +10,9 @@ $path = $_SERVER['DOCUMENT_ROOT'].'/paper/';
   <body>
       <div id="fullpage" class="site-wrapper">
         <div class="section" class="content-wrapper">
-            <?php include_once 'controller/load-content.php'; ?>
+            <?php include_once ($path.'/controller/ajax-load-content.php'); ?>
         </div>
       </div>
-			<?php include_once 'partials/nav.html'; ?>
+			<?php include_once '/partials/nav.html'; ?>
   </body>
 </html>

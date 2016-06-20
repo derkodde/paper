@@ -26,6 +26,10 @@ body, mce
 h1
 	font-size: 2em
 
+.fp-slide
+	box-sizing: border-box
+	border: 5px solid $dark
+	border-bottom-right-radius: 20px
 article
 	margin: 0 auto
 	padding: $padding/2 $padding
@@ -33,7 +37,7 @@ article
 	width: 100%
 	overflow-y: auto
 	word-wrap: break-word
-	word-break: normal
+	word-break: break-all
 	img
 		width: 100%
 		height: auto
@@ -45,19 +49,17 @@ article
 .inline-block
 	display: inline-block !important
 
-// Nav
+
 nav
-	background-color: $dark
+	background-color: transparent
 	position: fixed
 	bottom: 0
 	height:	$menu-height
 	width: 100%
-	+box-shadow
-
 	//handle
 	.handle
 		display: inline-block
-		color: $light
+		color: $dark
 		i
 			display: inline-block
 			padding: $padding/2
