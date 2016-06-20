@@ -106,8 +106,24 @@ function loadMenuJson() {
         //  console.log(val);
         items.push( '<li id="1_' + key + '" class="ui-state-default">' + val.title + '</li>' );
       });
-      $('.ajax-stack').html('<h3><a href="/paper/stack#' + stackname + '">' + stackname + '</a></h3><ul id="sortable1" class="menu droptrue">' + items.join( "" ) + '</ul>');
+      $('.ajax-stack').html('<h3 class="text-center"><a href="/paper/stack#' + stackname + '">' + stackname + '</a></h3><ul id="sortable1" class="menu droptrue">' + items.join( "" ) + '</ul>');
     });
+}
+
+/*
+*	adds an entry in the menu and a content file
+*
+*/
+function addPaper(event){
+		//add li to archive
+    var newSlide = $('<li></li>').text($('.menu.archive input[name=paper-name]').val());
+		$('.settings-container ul#menu_archive').append(newSlide);
+
+		$('.menu.archive input[name=add-button]').on('click', function(event){
+			event.preventDefault();
+			$('.menu.archive input[name=paper-name]').val(' ');
+		});
+
 }
 
 /*
@@ -163,6 +179,7 @@ function initJQueryUi(){
 
 	$('#sortable1').sortable({
 		axis: 'y',
+		revert: true,
 		update: function(event, ui) {
 			var sortedIDs = $("#sortable1").sortable("toArray"); //
 			writeMenuJson(sortedIDs);
@@ -227,11 +244,9 @@ function initAttrchangeOnMce(){
 	  callback: function (event) {
 			if (event.attributeName === 'class'){
 				var wasMce =  event.oldValue;
-				console.log(wasMce);
 				var pattern = /mce-edit-focus/;
 				var exists = pattern.test(wasMce)
 				if(exists) {
-
 					$('.fp-slidesNav').show();
 				}
 			}
