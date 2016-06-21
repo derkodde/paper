@@ -4,7 +4,7 @@
 */
 function showSaveSymbol(){
 	$('i.fa-save').toggle();
-	$('i.fa-save').fadeOut(600);
+	$('i.fa-save').delay(1200).fadeOut(300);
 }
 
 /*
@@ -60,7 +60,7 @@ function toggleMenu(){
 	$('.slide').fadeToggle();
 
 	// toggle the icons
-		$('.fp-slidesNav').fadeToggle();
+	$('.fp-slidesNav').fadeToggle();
 	$('.handle i.fa-ellipsis-v').toggle();
 	$('i.fa-close').toggleClass('inline-block');
 }

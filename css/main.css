@@ -11,8 +11,7 @@ h1 {
 
 .fp-slide {
   box-sizing: border-box;
-  border: 5px solid #666;
-  border-bottom-right-radius: 20px; }
+  border: 5px solid #666; }
 
 article {
   margin: 0 auto;
