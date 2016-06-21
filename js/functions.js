@@ -116,11 +116,10 @@ function loadMenuJson() {
 */
 function addPaper(event){
 		//add li to archive
-    var newSlide = $('<li></li>').text($('.menu.archive input[name=paper-name]').val());
+    var newSlide = $('<li class="ui-state-default ui-sortable-handle"></li>').text($('.menu.archive input[name=paper-name]').val());
 		$('.settings-container ul#menu_archive').append(newSlide);
 
 		$('.menu.archive input[name=add-button]').on('click', function(event){
-			event.preventDefault();
 			$('.menu.archive input[name=paper-name]').val(' ');
 		});
 
@@ -172,7 +171,7 @@ function writeContent (currContent){
 // init plugins
 //==============
 function initJQueryUi(){
-	$('')
+
 	$("ul.droptrue").sortable({
 		connectWith: "ul"
 	});

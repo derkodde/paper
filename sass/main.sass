@@ -25,7 +25,7 @@ body, mce
 
 h1
 	font-size: 2em
-	
+
 .fp-slide
 	box-sizing: border-box
 	border: 5px solid $dark
@@ -47,7 +47,8 @@ article
 	+text-center
 .inline-block
 	display: inline-block !important
-
+.clearfix
+	clear: both
 
 nav
 	background-color: transparent
@@ -106,12 +107,24 @@ nav
 						-moz-box-shadow: -2px -2px 32px -12px #000000
 						-webkit-box-shadow: -2px -2px 32px -12px #000000
 						box-shadow: -2px -2px 32px -12px #000000
-			&.archive
-				form
-					white-space: nowrap
-					input[name=paper-name]
-						width: 75%
-						margin: 0
-					input[name=add-button]
-						width: 20%
-						margin: 0
+				&#menu_archive
+					li
+						text-align: left
+						&#addPaper
+							padding: 0
+							height: 30px
+							display: flex
+							align-items: stretch
+							flex-flow: row
+							input
+								border: 0
+								box-sizing: border-box
+								height: 30px
+								margin: 0
+								font-family: monospace
+								font-size: inherit
+								&[name=paper-name]
+									padding-left: 5px
+									flex-grow: 2
+								&[name=add-button]
+									width: 30px

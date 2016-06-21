@@ -35,6 +35,9 @@ article {
 .inline-block {
   display: inline-block !important; }
 
+.clearfix {
+  clear: both; }
+
 nav {
   background-color: transparent;
   position: fixed;
@@ -90,13 +93,25 @@ nav {
             -moz-box-shadow: -2px -2px 32px -12px #000000;
             -webkit-box-shadow: -2px -2px 32px -12px #000000;
             box-shadow: -2px -2px 32px -12px #000000; }
-      nav .settings-container .menu.archive form {
-        white-space: nowrap; }
-        nav .settings-container .menu.archive form input[name=paper-name] {
-          width: 75%;
-          margin: 0; }
-        nav .settings-container .menu.archive form input[name=add-button] {
-          width: 20%;
-          margin: 0; }
+        nav .settings-container .menu ul#menu_archive li {
+          text-align: left; }
+          nav .settings-container .menu ul#menu_archive li#addPaper {
+            padding: 0;
+            height: 30px;
+            display: flex;
+            align-items: stretch;
+            flex-flow: row; }
+            nav .settings-container .menu ul#menu_archive li#addPaper input {
+              border: 0;
+              box-sizing: border-box;
+              height: 30px;
+              margin: 0;
+              font-family: monospace;
+              font-size: inherit; }
+              nav .settings-container .menu ul#menu_archive li#addPaper input[name=paper-name] {
+                padding-left: 5px;
+                flex-grow: 2; }
+              nav .settings-container .menu ul#menu_archive li#addPaper input[name=add-button] {
+                width: 30px; }
 
 /*# sourceMappingURL=main.css.map */
