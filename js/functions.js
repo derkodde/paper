@@ -45,6 +45,7 @@ function getCurrPage() {
 *	it calls the ajaxLoadContent() when the menu is left to load the content in the new order of the menu.
 */
 function toggleMenu(){
+
 	if ($('.settings-container').hasClass('opened')){
 		ajaxLoadContent();
 	} else {
@@ -72,6 +73,7 @@ function toggleMenu(){
 */
 function writeMenuJson(sortedIDs) {
 		//merge ids from jQueryUI with names
+
 		var menu = {};
 		$.each(sortedIDs, function(key, value) {
 				menu[key] = { 'id' :  value, 'title' :  $("#sortable1 #"+ value ).text() } ;
@@ -116,13 +118,60 @@ function loadMenuJson() {
 */
 function addPaper(event){
 		//add li to archive
-    var newSlide = $('<li class="ui-state-default ui-sortable-handle"></li>').text($('.menu.archive input[name=paper-name]').val());
+	var element = $('.menu.archive input[name=paper-name]');
+	var forminput = element.val();
+  var newSlide = $('<li class="ui-state-default ui-sortable-handle"></li>').text(forminput);
+
+	if (validateAddPaper(forminput, element) === true ) {
 		$('.settings-container ul#menu_archive').append(newSlide);
+		$('.menu.archive input[name=paper-name]').val(null);
+		addMenuAndFile(inputToFilename(forminput));
+		forminput = null;
+	}
 
-		$('.menu.archive input[name=add-button]').on('click', function(event){
-			$('.menu.archive input[name=paper-name]').val(' ');
-		});
 
+}
+
+/*
+* validates the input of the form
+*
+* returns a boolean
+*/
+function validateAddPaper(forminput, element){
+
+	if (forminput == null || forminput == "") { // not empty
+		element.css({'outline' : 'red auto 5px'});
+		return false;
+	}
+	// else if () { // checks if the name is already in use
+	//
+	// }
+	// else if () { // check if the name is usable as filename
+	//
+	// }
+	else {
+			element.css({'outline' : 'initial'});
+		return true;
+	}
+
+}
+
+/*
+* processes the name to a unique Filename
+*
+*
+*/
+function inputToFilename(forminput){
+
+	return result
+}
+/*
+* adds a menu entry and a file with the same name in Content folder
+* return string in lowercase, with no spaces or special chars
+*/
+function addMenuAndFile(forminput){
+
+	writeMenuJson().showSaveSymbol();
 }
 
 /*
@@ -180,7 +229,8 @@ function initJQueryUi(){
 		axis: 'y',
 		revert: true,
 		update: function(event, ui) {
-			var sortedIDs = $("#sortable1").sortable("toArray"); //
+			var sortedIDs = $("#sortable1").sortable("toArray");
+			// *
 			writeMenuJson(sortedIDs);
 		}
 	});
