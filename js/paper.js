@@ -1,4 +1,3 @@
-var currSlide = '';
 var currStack = "firstStack";
 var currMenu = [];
 
