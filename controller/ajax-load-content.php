@@ -18,18 +18,13 @@ foreach ($contentfiles as $key => $value) {
 // $menu_order is type stdClass and we want to check if it's empty
 if ( $menu_order == new stdClass() )
 {
-  /*
-	*echo "$menu_order is empty"; // JSON: {}
-	*/
+	// echo "menu.json is empty"; // JSON: {}
 	$menuJsonIsEmpty = '1';
 	// print_r ($contentfiles);
 	// write to titles Array
 	foreach ($contents  as $value){
 	    $titles[] = $value['title'];
 	}
-
-
-
 
 } else {
 	//menu is filled

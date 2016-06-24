@@ -6,11 +6,12 @@ var currMenu = [];
 jQuery(document).ready(function() {
 
   initFullpageJs();
-  loadMenuJson();
+	ajaxLoadContent();
+	loadMenuJson();
 
   $('#pagenav .handle i.page-settings').on('click', function() {
-	   initJQueryUi()// JQUERYUI ----- Menu
-		 toggleMenu();
+		initJQueryUi()// JQUERYUI ----- Menu
+		toggleMenu();
   });
 
 });

@@ -110,8 +110,8 @@ function loadMenuJson() {
 
 		stackname = 'firstStack';
 
-		if (menuJsonIsEmpty == 1 ) {
-			data = contentfiles ;
+		if (menuJsonIsEmpty == 1) {
+			data =  contentfiles;
 			console.log(data);
 		}
 		var items = [];
@@ -147,7 +147,6 @@ function addPaper(event){
 		addMenuAndFile(inputToFilename(forminput));
 		forminput = null;
 	}
-
 
 }
 
