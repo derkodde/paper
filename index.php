@@ -16,7 +16,7 @@ $page = 'home';
               <article>
                 <h1 class="text-center">Was ist "paper"?&nbsp;</h1>
                   <p>"paper" ist einfach wie ein gutes, altes, wei&szlig;es St&uuml;ck Papier!</p>
-                  <p>&nbsp;<img src="media/rame-de-papier-pro-massicot.gif" alt="paper" width="500" height="375" /></p>
+                  <p><a href=""><img src="media/rame-de-papier-pro-massicot.gif" alt="paper" width="500" height="375" /></a></p>
                   <p>&nbsp;</p>
             </article>
           </section>
