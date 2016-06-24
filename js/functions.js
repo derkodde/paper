@@ -1,8 +1,14 @@
 /*
-* shows a fa-save Icon when Ajax saving
-*	called, when the content of a slide or the menu is updated
+* gets files in content folder and give to
+*
 */
-function showSaveSymbol(){
+
+
+/*
+* shows a fa-save Icon when Ajax saving
+* called, when the content of a slide or the menu is updated
+*/
+function showSaveSymbol() {
 	$('i.fa-save').toggle();
 	$('i.fa-save').delay(1200).fadeOut(300);
 }
@@ -13,7 +19,7 @@ function showSaveSymbol(){
 */
 function getContentPath(){
 		currPage = getCurrPage();
-    var currContentPath = '/paper/content/'+ currPage + '.html';
+    var currContentPath = '/paper/content/' + currPage + '.html';
     return currContentPath;
 }
 
@@ -24,17 +30,17 @@ function getContentPath(){
 *	needs the current Stack
 */
 function getCurrPage() {
-    url      = window.location.href;
+    var url = window.location.href;
     var array = url.split('/');
     var currPage = array[array.length-1];
 
 		//fullpage.js gives no URL parameter for the first slide of a stack
-    if (currPage == ('stack#' + currStack)) {
+    if (currPage === ('stack#' + currStack)) {
         $("#sortable1 li").each(function( index ) {
             currMenu.push($(this).text());
             // currPage = currMenu[0];
         });
-      	urrPage= currMenu[0];
+      	currPage= currMenu[0];
     }
 
     return currPage;
@@ -100,16 +106,24 @@ function writeMenuJson(sortedIDs) {
 *
 */
 function loadMenuJson() {
-    $.getJSON( "/paper/menu.json", function( data ) {
+	$.getJSON( "/paper/menu.json", function( data ) {
 
-    stackname = 'firstStack';
-    var items = [];
-      $.each( data, function( key, val ) {
-        //  console.log(val);
-        items.push( '<li id="1_' + key + '" class="ui-state-default">' + val.title + '</li>' );
-      });
-      $('.ajax-stack').html('<h3 class="text-center"><a href="/paper/stack#' + stackname + '">' + stackname + '</a></h3><ul id="sortable1" class="menu droptrue">' + items.join( "" ) + '</ul>');
-    });
+		stackname = 'firstStack';
+
+		if (menuJsonIsEmpty == 1 ) {
+			data = contentfiles ;
+			console.log(data);
+		}
+		var items = [];
+
+		$.each( data, function( key, val ) {
+			//  console.log(val);
+			items.push( '<li id="1_' + key + '" class="ui-state-default">' + val.title + '</li>' );
+		});
+
+		$('.ajax-stack').html('<h3 class="text-center"><a href="/paper/stack#' + stackname + '">' + stackname + '</a></h3><ul id="sortable1" class="menu droptrue">' + items.join( "" ) + '</ul>');
+
+  });
 }
 
 /*
@@ -118,13 +132,18 @@ function loadMenuJson() {
 */
 function addPaper(event){
 		//add li to archive
+
 	var element = $('.menu.archive input[name=paper-name]');
 	var forminput = element.val();
   var newSlide = $('<li class="ui-state-default ui-sortable-handle"></li>').text(forminput);
 
+	element.submit(function(e) {
+    e.preventDefault();
+	});
+
 	if (validateAddPaper(forminput, element) === true ) {
 		$('.settings-container ul#menu_archive').append(newSlide);
-		$('.menu.archive input[name=paper-name]').val(null);
+		$('.menu.archive input[name=paper-name]').val(null).attr('placeholder', 'add another paper?');
 		addMenuAndFile(inputToFilename(forminput));
 		forminput = null;
 	}
@@ -140,7 +159,7 @@ function addPaper(event){
 function validateAddPaper(forminput, element){
 
 	if (forminput == null || forminput == "") { // not empty
-		element.css({'outline' : 'red auto 5px'});
+		element.css({'outline' : 'red auto 5px'}).attr('placeholder', 'feed me letters! argh!');
 		return false;
 	}
 	// else if () { // checks if the name is already in use
@@ -163,7 +182,7 @@ function validateAddPaper(forminput, element){
 */
 function inputToFilename(forminput){
 
-	return result
+	return forminput
 }
 /*
 * adds a menu entry and a file with the same name in Content folder
@@ -171,7 +190,8 @@ function inputToFilename(forminput){
 */
 function addMenuAndFile(forminput){
 
-	writeMenuJson().showSaveSymbol();
+	writeMenuJson();
+	showSaveSymbol();
 }
 
 /*
