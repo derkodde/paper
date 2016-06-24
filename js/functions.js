@@ -118,11 +118,12 @@ function loadMenuJson() {
 
 		$.each( data, function( key, val ) {
 			//  console.log(val);
-			items.push( '<li id="1_' + key + '" class="ui-state-default">' + val.title + '</li>' );
+			items.push( '<li id="1_' + key + '" class="ui-state-default ui-sortable-handle">' + val.title + '</li>' );
 		});
 
 		$('.ajax-stack').html('<h3 class="text-center"><a href="/paper/stack#' + stackname + '">' + stackname + '</a></h3><ul id="sortable1" class="menu droptrue">' + items.join( "" ) + '</ul>');
 
+		initJQueryUi();
   });
 }
 
@@ -135,7 +136,7 @@ function addPaper(event){
 
 	var element = $('.menu.archive input[name=paper-name]');
 	var forminput = element.val();
-  var newSlide = $('<li class="ui-state-default ui-sortable-handle"></li>').text(forminput);
+  var newSlide = $('<li id="1_' + countStack(stack) + ' " class="ui-state-default ui-sortable-handle"></li>').text(forminput);
 
 	element.submit(function(e) {
     e.preventDefault();
@@ -146,6 +147,7 @@ function addPaper(event){
 		$('.menu.archive input[name=paper-name]').val(null).attr('placeholder', 'add another paper?');
 		addMenuAndFile(inputToFilename(forminput));
 		forminput = null;
+		initJQueryUi();
 	}
 
 }
@@ -239,17 +241,13 @@ function writeContent (currContent){
 // init plugins
 //==============
 function initJQueryUi(){
-
-	$("ul.droptrue").sortable({
-		connectWith: "ul"
-	});
-
-	$('#sortable1').sortable({
+	$('#sortable1, #menu_archive').sortable({
+		connectWith: "ul",
 		axis: 'y',
 		revert: true,
 		update: function(event, ui) {
 			var sortedIDs = $("#sortable1").sortable("toArray");
-			// *
+			// var current
 			writeMenuJson(sortedIDs);
 		}
 	});

@@ -7,11 +7,11 @@ jQuery(document).ready(function() {
 
   initFullpageJs();
 	ajaxLoadContent();
-	loadMenuJson();
 
   $('#pagenav .handle i.page-settings').on('click', function() {
-		initJQueryUi()// JQUERYUI ----- Menu
+		loadMenuJson();
 		toggleMenu();
+		// JQUERYUI ----- Menu
   });
 
 });
