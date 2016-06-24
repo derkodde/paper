@@ -48,7 +48,7 @@ foreach ($titles as $key => $value) {
 		echo '<h1 class="text-center">'.$value.'</h1>';
 		echo '<div class="formtarget"></div>';
 		echo '<article class="scrollable">';
-		 include ($dir.$value.'.html');
+		if (is_file($dir.$value.'.html')) { include ($dir.$value.'.html'); } else { echo "los gehts!"; }
     echo "</article></div>";
 
 }
