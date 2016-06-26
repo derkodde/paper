@@ -55,7 +55,6 @@ function addPaper(event){
 
 }
 
-
 /*
 * validates the input of the form
 *
@@ -94,7 +93,6 @@ function inputToFilename(forminput){
 * return string in lowercase, with no spaces or special chars
 */
 function addMenuAndFile(forminput){
-	writeMenuJson();
 	showSaveSymbol();
 }
 

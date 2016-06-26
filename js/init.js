@@ -10,6 +10,7 @@ function initJQueryUi(){
 		update: function(event, ui) {
 			var sortedIDs = $("#firstStack-menu").sortable("toArray");
 			writeMenuJson(sortedIDs)
+			console.log('updated $UI');
 		}
 	});
 }
